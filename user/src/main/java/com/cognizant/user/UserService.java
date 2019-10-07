@@ -9,9 +9,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cognizant.entities.Skills;
-import com.cognizant.entities.TrainerDetails;
-import com.cognizant.entities.Users;
+import com.cognizant.user.entities.Skills;
+import com.cognizant.user.entities.TrainerDetails;
+import com.cognizant.user.entities.Users;
 
 @Service
 public class UserService {

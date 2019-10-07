@@ -1,4 +1,4 @@
-package com.cognizant.entities;
+package com.cognizant.user.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

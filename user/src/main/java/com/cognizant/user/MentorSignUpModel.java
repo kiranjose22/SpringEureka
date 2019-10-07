@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
-import com.cognizant.entities.Skills;
+import com.cognizant.user.entities.Skills;
 
 public class MentorSignUpModel {
     private boolean blogs;

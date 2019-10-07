@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.entities.SearchResult;
-import com.cognizant.entities.TrainerDetails;
-import com.cognizant.entities.Trainings;
+import com.cognizant.user.entities.SearchResult;
+import com.cognizant.user.entities.TrainerDetails;
+import com.cognizant.user.entities.Trainings;
+import com.cognizant.user.entities.Users;
 
 @RestController
 public class Controller {
 
     @Autowired
     UserService userService;
-//
+
 //    @Autowired
 //    TrainingsService trainingsService;
 //
@@ -42,8 +43,14 @@ public class Controller {
     }
 
     @RequestMapping("/users/{id}")
-    public com.cognizant.entities.Users getUserList(@PathVariable String id){
+    public Users getUserList(@PathVariable String id){
         return userService.getUser(id);
+    }
+    @RequestMapping("/block/{id}")
+    public void blockUser(@PathVariable String id){
+        Users user = userService.getUser(id);
+        user.setStatus("blocked");
+        userService.updateUser(user,id);
     }
 
 //    @RequestMapping("/trainings")
@@ -68,7 +75,7 @@ public class Controller {
         userService.addUserDetails(s);
     }
     @RequestMapping(method=RequestMethod.PUT,value = "/users/{id}")
-    public void updateUser(@RequestBody com.cognizant.entities.Users s, @PathVariable String id){
+    public void updateUser(@RequestBody Users s,@PathVariable String id){
         userService.updateUser(s,id);
     }
 

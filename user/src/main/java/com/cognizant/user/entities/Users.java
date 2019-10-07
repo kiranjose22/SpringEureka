@@ -1,4 +1,4 @@
-package com.cognizant.entities;
+package com.cognizant.user.entities;
 
 import java.util.Set;
 
