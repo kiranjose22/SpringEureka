@@ -18,7 +18,7 @@ public class MentorApplication {
 	@Bean
 	public CommandLineRunner demoData(SkillsRepository repo) {
 		return args -> {
-			Skills skills = new Skills("na");
+			Skills skills = new Skills("other");
 			repo.save(skills);
 //			repo.save(new Entity(...));
 		};
