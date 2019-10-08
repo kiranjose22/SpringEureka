@@ -3,6 +3,7 @@ package com.cognizant.user;
 import java.util.ArrayList;
 //import java.util.List;
 
+import com.cognizant.user.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,46 +11,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.user.entities.SearchResult;
-import com.cognizant.user.entities.TrainerDetails;
-import com.cognizant.user.entities.Trainings;
-import com.cognizant.user.entities.Users;
-
 @RestController
 public class Controller {
 
     @Autowired
     UserService userService;
+    @Autowired
+    SkillsRepository skillsRepository;
 
 //    @Autowired
 //    TrainingsService trainingsService;
 //
 //    @Autowired
 //    SearchService searchService;
+    public void initializedb() {
+        Skills skills = new Skills("na");
+        skillsRepository.save(skills);
+    }
 
     @RequestMapping("")
     public String hi() {
+        initializedb();
         return "Hi";
     }
 
     @RequestMapping("/hello")
     public String hello() {
+        initializedb();
         return "Hello!";
     }
 
     @RequestMapping("/users")
     public ArrayList<MentorSignUpModel> getList(){
+        initializedb();
         return userService.getUserList();
     }
 
     @RequestMapping("/users/{id}")
     public Users getUserList(@PathVariable String id){
+        initializedb();
         return userService.getUser(id);
     }
     @RequestMapping("/block/{id}")
     public void blockUser(@PathVariable String id){
+        initializedb();
         Users user = userService.getUser(id);
-        user.setStatus("blocked");
+        if(user.getStatus().equals("unblocked"))
+            user.setStatus("blocked");
+        else
+            user.setStatus("unblocked");
         userService.updateUser(user,id);
     }
 
@@ -70,12 +80,14 @@ public class Controller {
 
     @RequestMapping(method=RequestMethod.POST,value = "/users")
     public void addUsers(@RequestBody MentorSignUpModel s) {
+        initializedb();
 
         System.out.println("at controller"+s.getSkills());
         userService.addUserDetails(s);
     }
     @RequestMapping(method=RequestMethod.PUT,value = "/users/{id}")
     public void updateUser(@RequestBody Users s,@PathVariable String id){
+        initializedb();
         userService.updateUser(s,id);
     }
 
@@ -86,6 +98,7 @@ public class Controller {
 
     @RequestMapping(method = RequestMethod.DELETE,value = "/users/{id}")
     public void deleteUser(@PathVariable String id) {
+        initializedb();
         userService.deleteUser(id);
     }
 

@@ -1,5 +1,7 @@
 package com.cognizant.admin;
 
+import com.cognizant.admin.entities.Skills;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -19,6 +21,15 @@ public class AdminApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AdminApplication.class, args);
+	}
+
+	@Bean
+	public CommandLineRunner demoData(SkillsRepository repo) {
+		return args -> {
+			Skills skills = new Skills("na");
+			repo.save(skills);
+//			repo.save(new Entity(...));
+		};
 	}
 
 }

@@ -3,6 +3,7 @@ package com.cognizant.mentor;
 import java.util.ArrayList;
 //import java.util.List;
 
+import com.cognizant.mentor.entities.Skills;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,9 @@ public class Controller {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SkillsRepository skillsRepository;
 
 //    @Autowired
 //    TrainingsService trainingsService;
@@ -39,9 +43,27 @@ public class Controller {
         return userService.getUserList();
     }
 
+    @RequestMapping("/skills")
+    public ArrayList<Skills> getSkillList(){
+        ArrayList<Skills> technologiesList = new ArrayList<Skills>();
+        skillsRepository.findAll().forEach(technologiesList::add);
+        return technologiesList;
+//        return userService.getUserList();
+    }
+
     @RequestMapping("/mentors/{id}")
     public Users getUserList(@PathVariable String id){
         return userService.getUser(id);
+    }
+
+    @RequestMapping("/block/{id}")
+    public void blockMentor(@PathVariable String id){
+        Users user = userService.getUser(id);
+        if(user.getStatus().equals("unblocked"))
+            user.setStatus("blocked");
+        else
+            user.setStatus("unblocked");
+        userService.updateUser(user,id);
     }
 
 //    @RequestMapping("/trainings")
@@ -65,6 +87,13 @@ public class Controller {
 //        System.out.println("at controller"+s.getSkills());
         userService.addUserDetails(s);
     }
+    @RequestMapping(method=RequestMethod.POST,value = "/skills")
+    public void addSkills(@RequestBody Skills s) {
+
+//        System.out.println("at controller"+s.getSkills());
+//        userService.addUserDetails(s);
+        skillsRepository.save(s);
+    }
     @RequestMapping(method=RequestMethod.PUT,value = "/mentors/{id}")
     public void updateUser(@RequestBody Users s,@PathVariable String id){
         userService.updateUser(s,id);
@@ -78,6 +107,11 @@ public class Controller {
     @RequestMapping(method = RequestMethod.DELETE,value = "/mentors/{id}")
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE,value = "/skills/{id}")
+    public void deleteSkill(@PathVariable String id) {
+        skillsRepository.deleteById(id);
     }
 
 }

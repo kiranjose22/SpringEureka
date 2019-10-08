@@ -8,59 +8,46 @@ import javax.persistence.OneToOne;
 public class Technologies {
 	
 	@Id
-	private String id;
 	private String technology;
-	private float fee;
+	private int fee;
+	private int commission;
 	
-	@OneToOne(mappedBy="technologies")
-	private Trainings trainings;
-	
+//	@OneToOne(mappedBy="technologies")
+//	private Trainings trainings;
+//
 	
 	
 	public Technologies() {
 //		super();
 	}
 
-
-	public Technologies(String id, String technology, float fee) {
-		super();
-		this.id = id;
+	public Technologies(String technology, int fee, int commission) {
 		this.technology = technology;
 		this.fee = fee;
+		this.commission = commission;
 	}
-
-
-	public String getId() {
-		return id;
-	}
-
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 
 	public String getTechnology() {
 		return technology;
 	}
 
-
 	public void setTechnology(String technology) {
 		this.technology = technology;
 	}
 
-
-	public float getFee() {
+	public int getFee() {
 		return fee;
 	}
 
-
-	public void setFee(float fee) {
+	public void setFee(int fee) {
 		this.fee = fee;
 	}
-	
-	
-	
-	
 
+	public int getCommission() {
+		return commission;
+	}
+
+	public void setCommission(int commission) {
+		this.commission = commission;
+	}
 }

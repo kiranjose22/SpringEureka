@@ -3,6 +3,8 @@ package com.cognizant.admin;
 import java.util.ArrayList;
 //import java.util.List;
 
+import com.cognizant.admin.entities.Skills;
+import com.cognizant.admin.entities.Technologies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,9 @@ public class Controller {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TechnologiesService technologiesService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -43,10 +48,21 @@ public class Controller {
         return userService.getUserList();
     }
 
+    @RequestMapping("/technologies")
+    public ArrayList<Technologies> getTechList(){
+        return technologiesService.getTechList();
+    }
+
     @RequestMapping("/blockuser/{id}")
     public void blockUser(@PathVariable String id){
 
         restTemplate.getForObject("http://user/block/"+id,Users.class);
+
+    }
+    @RequestMapping("/blockmentor/{id}")
+    public void blockMentor(@PathVariable String id){
+
+        restTemplate.getForObject("http://mentor/block/"+id,Users.class);
 
     }
 
@@ -76,6 +92,16 @@ public class Controller {
 //        System.out.println("at controller"+s.getSkills());
         userService.addUserDetails(s);
     }
+    @RequestMapping(method=RequestMethod.POST,value = "/technologies")
+    public void addTechnology(@RequestBody Technologies s) {
+
+//        System.out.println("at controller"+s.getSkills());
+//        userService.addUserDetails(s);
+        technologiesService.addTechnology(s);
+        Skills skill = new Skills(s.getTechnology());
+        restTemplate.postForObject("http://mentor/skills",skill,Skills.class);
+
+    }
     @RequestMapping(method=RequestMethod.PUT,value = "/admins/{id}")
     public void updateUser(@RequestBody Users s,@PathVariable String id){
         userService.updateUser(s,id);
@@ -89,6 +115,12 @@ public class Controller {
     @RequestMapping(method = RequestMethod.DELETE,value = "/admins/{id}")
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE,value = "/technologies/{id}")
+    public void deleteTech(@PathVariable String id) {
+        technologiesService.deleteTech(id);
+        restTemplate.delete("http://mentor/skills/"+id);
     }
 
 }

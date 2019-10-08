@@ -6,6 +6,13 @@ import javax.persistence.Id;
 @Entity
 public class Skills {
 
+	public Skills() {
+
+	}
+	public Skills(String skill) {
+		this.skill = skill;
+	}
+
 	@Id
 	private String skill;
 
