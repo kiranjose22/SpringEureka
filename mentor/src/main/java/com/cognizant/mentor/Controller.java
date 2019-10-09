@@ -3,6 +3,8 @@ package com.cognizant.mentor;
 import java.util.ArrayList;
 //import java.util.List;
 
+import com.cognizant.mentor.entities.Results;
+import com.cognizant.mentor.entities.SearchForm;
 import com.cognizant.mentor.entities.Skills;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,12 @@ public class Controller {
 
     @Autowired
     SkillsRepository skillsRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    ResultsRepository resultsRepository;
 
 //    @Autowired
 //    TrainingsService trainingsService;
@@ -86,6 +94,15 @@ public class Controller {
 
 //        System.out.println("at controller"+s.getSkills());
         userService.addUserDetails(s);
+    }
+    @RequestMapping(method=RequestMethod.POST,value = "/search")
+    public ArrayList<Results> searchMentors(@RequestBody SearchForm s) {
+
+//        System.out.println("at controller"+s.getSkills());
+//        userService.addUserDetails(s);
+//        ArrayList<Results> temp = userRepository.findMentors(s.getFrom(),s.getCourse(),s.getTimeslot());
+//        System.out.println("Hi there"+temp.get(0).getUserName());
+        return resultsRepository.findMentors(s.getFrom(),s.getCourse(),s.getTimeslot());
     }
     @RequestMapping(method=RequestMethod.POST,value = "/skills")
     public void addSkills(@RequestBody Skills s) {

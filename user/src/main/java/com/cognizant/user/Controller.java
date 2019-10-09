@@ -18,6 +18,8 @@ public class Controller {
     UserService userService;
     @Autowired
     SkillsRepository skillsRepository;
+    @Autowired
+    CourseService courseService;
 
 //    @Autowired
 //    TrainingsService trainingsService;
@@ -84,6 +86,11 @@ public class Controller {
 
         System.out.println("at controller"+s.getSkills());
         userService.addUserDetails(s);
+    }
+    @RequestMapping(method=RequestMethod.POST,value = "/courses")
+    public void addCourses(@RequestBody Course s) {
+
+        courseService.addCourse(s);
     }
     @RequestMapping(method=RequestMethod.PUT,value = "/users/{id}")
     public void updateUser(@RequestBody Users s,@PathVariable String id){

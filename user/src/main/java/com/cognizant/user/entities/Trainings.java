@@ -23,7 +23,7 @@ public class Trainings {
 //	@ManyToMany(mappedBy = "trainings")
 //	private Set<Users> users;
 
-	
+
 	public Trainings() {
 //		super();
 	}
@@ -36,11 +36,11 @@ public class Trainings {
 		this.status = status;
 		this.progress = progress;
 		this.technologies = technologies;
-//		this.users = users; 
+//		this.users = users;
 		//,Set<Users> users
 	}
-	
-	
+
+
 
 //	public Set<Users> getUsers() {
 //		return users;
