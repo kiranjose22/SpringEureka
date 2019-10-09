@@ -137,4 +137,9 @@ public class CourseService {
         courseRepository.save(course);
     }
 
+    public ArrayList<Course> getCourseList() {
+        ArrayList<Course> courseList = new ArrayList<Course>();
+        courseRepository.findAll().forEach(courseList::add);
+        return courseList;
+    }
 }

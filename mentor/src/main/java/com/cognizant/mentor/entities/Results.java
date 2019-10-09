@@ -8,13 +8,23 @@ public class Results {
     @Id
     String userName;
     int experience;
+    String email;
 
     public Results() {
     }
 
-    public Results(String userName, int experience) {
+    public Results(String userName, int experience,String email) {
         this.userName = userName;
         this.experience = experience;
+        this.email=email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUserName() {

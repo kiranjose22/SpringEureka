@@ -49,6 +49,13 @@ public class Controller {
         return userService.getUserList();
     }
 
+
+    @RequestMapping("/courses")
+    public ArrayList<Course> getCourseList(){
+        initializedb();
+        return courseService.getCourseList();
+    }
+
     @RequestMapping("/users/{id}")
     public Users getUserList(@PathVariable String id){
         initializedb();
