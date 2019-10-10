@@ -26,44 +26,44 @@ public class Controller {
 //
 //    @Autowired
 //    SearchService searchService;
-    public void initializedb() {
-        Skills skills = new Skills("na");
-        skillsRepository.save(skills);
-    }
+//    public void initializedb() {
+//        Skills skills = new Skills("na");
+//        skillsRepository.save(skills);
+//    }
 
     @RequestMapping("")
     public String hi() {
-        initializedb();
+       // initializedb();
         return "Hi";
     }
 
     @RequestMapping("/hello")
     public String hello() {
-        initializedb();
+       // initializedb();
         return "Hello!";
     }
 
     @RequestMapping("/users")
     public ArrayList<MentorSignUpModel> getList(){
-        initializedb();
+       // initializedb();
         return userService.getUserList();
     }
 
 
     @RequestMapping("/courses")
     public ArrayList<Course> getCourseList(){
-        initializedb();
+       // initializedb();
         return courseService.getCourseList();
     }
 
     @RequestMapping("/users/{id}")
     public Users getUserList(@PathVariable String id){
-        initializedb();
+       // initializedb();
         return userService.getUser(id);
     }
     @RequestMapping("/block/{id}")
     public void blockUser(@PathVariable String id){
-        initializedb();
+       // initializedb();
         Users user = userService.getUser(id);
         if(user.getStatus().equals("unblocked"))
             user.setStatus("blocked");
@@ -89,7 +89,7 @@ public class Controller {
 
     @RequestMapping(method=RequestMethod.POST,value = "/users")
     public void addUsers(@RequestBody MentorSignUpModel s) {
-        initializedb();
+      //  initializedb();
 
         System.out.println("at controller"+s.getSkills());
         userService.addUserDetails(s);
@@ -101,7 +101,7 @@ public class Controller {
     }
     @RequestMapping(method=RequestMethod.PUT,value = "/users/{id}")
     public void updateUser(@RequestBody Users s,@PathVariable String id){
-        initializedb();
+       // initializedb();
         userService.updateUser(s,id);
     }
 
@@ -112,7 +112,7 @@ public class Controller {
 
     @RequestMapping(method = RequestMethod.DELETE,value = "/users/{id}")
     public void deleteUser(@PathVariable String id) {
-        initializedb();
+       // initializedb();
         userService.deleteUser(id);
     }
 

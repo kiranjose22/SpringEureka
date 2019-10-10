@@ -1,6 +1,8 @@
 package com.cognizant.admin;
 
 import com.cognizant.admin.entities.Skills;
+import com.cognizant.admin.entities.TrainerDetails;
+import com.cognizant.admin.entities.Users;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,11 +26,21 @@ public class AdminApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demoData(SkillsRepository repo) {
+	public CommandLineRunner demoData(SkillsRepository repo,TrainerDetailsRepository tdr,UserRepository ur) {
 		return args -> {
 			Skills skills = new Skills("na");
 			repo.save(skills);
+			Users users = new Users();
+			TrainerDetails trainerDetails = new TrainerDetails();
+			trainerDetails.setEmail("a@a");
+			tdr.save(trainerDetails);
+			users.setEmail("a@a");
+			users.setPassword("a");
+			users.setRole("admin");
+			users.setUserName("ADMIN");
+			users.setTrainerDetails(trainerDetails);
 //			repo.save(new Entity(...));
+			ur.save(users);
 		};
 	}
 
